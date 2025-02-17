@@ -12,7 +12,7 @@ import com.ebe.qrscanner.model.data.dto.QRItemDTO;
 @Database(entities = {QRItemDTO.class}, version = 1, exportSchema = false)
 public abstract class DatabaseHelper extends RoomDatabase {
 
-    public abstract QRItemDao metaDataDao();
+    public abstract QRItemDao qrItemDao();
 
     private static DatabaseHelper databaseHelper;
 

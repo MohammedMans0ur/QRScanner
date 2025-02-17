@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initScannedQrAdapter() {
-        scannedItemsAdapter = new ScannedItemsAdapter(mainPresenter.getScannedQRItems(), this);
+        scannedItemsAdapter = new ScannedItemsAdapter(mainPresenter.getScannedQRItems(getApplicationContext()), this);
         binding.recyclerHistoryScannedQr.setAdapter(scannedItemsAdapter);
         binding.recyclerHistoryScannedQr.setLayoutManager(new LinearLayoutManager(this));
         scannedItemsAdapter.setOnScannedItemClickListener(qrItemDTO -> {
@@ -197,7 +197,7 @@ public class MainActivity extends BaseActivity implements MainView {
             new ScanContract(), result -> {
                 if (result.getContents() != null) {
                     QRItemDTO QRItemDTO = new QRItemDTO(result.getContents(), AppUtils.getCurrentDateTime("dd/MM/yy HH:mm a"), result.getFormatName(), false, result.getRawBytes());
-                    mainPresenter.insertQRItem(QRItemDTO);
+                    mainPresenter.insertQRItem(QRItemDTO,getApplicationContext());
 
                 }
             }

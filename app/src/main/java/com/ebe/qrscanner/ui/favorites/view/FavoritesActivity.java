@@ -57,7 +57,7 @@ public class FavoritesActivity extends BaseActivity {
     }
 
     private void initScannedQrAdapter() {
-        scannedItemsAdapter = new ScannedItemsAdapter(favoritesPresenter.getFavoriteQRItems(), this);
+        scannedItemsAdapter = new ScannedItemsAdapter(favoritesPresenter.getFavoriteQRItems(getApplicationContext()), this);
         binding.recyclerScannedQr.setAdapter(scannedItemsAdapter);
         binding.recyclerScannedQr.setLayoutManager(new LinearLayoutManager(this));
         scannedItemsAdapter.setOnScannedItemClickListener(qrItemDTO -> {

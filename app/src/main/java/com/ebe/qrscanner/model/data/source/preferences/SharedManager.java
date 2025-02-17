@@ -20,7 +20,7 @@ public class SharedManager {
     private final Gson mGson;
     private final SharedPreferences.Editor mEditor;
 
-    private SharedManager(Context mContext) {
+    public SharedManager(Context mContext) {
         mPreference = mContext.getSharedPreferences(APP_PREFERENCE, Context.MODE_PRIVATE);
         mEditor = mPreference.edit();
         mGson = new Gson();

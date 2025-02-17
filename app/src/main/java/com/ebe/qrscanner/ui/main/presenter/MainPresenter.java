@@ -1,5 +1,7 @@
 package com.ebe.qrscanner.ui.main.presenter;
 
+import android.content.Context;
+
 import com.ebe.qrscanner.model.DataManager;
 import com.ebe.qrscanner.model.data.dto.QRItemDTO;
 import com.ebe.qrscanner.ui.main.view.MainView;
@@ -19,12 +21,12 @@ public class MainPresenter {
         this.mainView = mainView;
     }
 
-    public List<QRItemDTO> getScannedQRItems() {
-        return DataManager.getInstance().getScannedQRItems();
+    public List<QRItemDTO> getScannedQRItems(Context context) {
+        return DataManager.getInstance(context).getScannedQRItems();
     }
 
-    public void insertQRItem(QRItemDTO qrItemDTO) {
-        DataManager.getInstance().insertQRItem(qrItemDTO)
+    public void insertQRItem(QRItemDTO qrItemDTO,Context context) {
+        DataManager.getInstance(context).insertQRItem(qrItemDTO)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Long>() {

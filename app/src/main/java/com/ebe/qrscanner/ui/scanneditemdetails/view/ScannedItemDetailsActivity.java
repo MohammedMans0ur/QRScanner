@@ -55,11 +55,11 @@ public class ScannedItemDetailsActivity extends BaseActivity {
                     binding.imgFavorite.setImageResource(R.drawable.baseline_star_24);
                     qrItemDTO.setFavorite(true);
                 }
-                scannedItemDetailsPresenter.setFavorite(qrItemId, qrItemDTO.getFavorite());
+                scannedItemDetailsPresenter.setFavorite(qrItemId, qrItemDTO.getFavorite(),getApplicationContext());
             });
             qrItemId = getIntent().getLongExtra(Constants.QR_ITEM_ID, 0);
             if (qrItemId != 0) {
-                qrItemDTO = scannedItemDetailsPresenter.getQRItem(qrItemId);
+                qrItemDTO = scannedItemDetailsPresenter.getQRItem(qrItemId,getApplicationContext());
                 if (qrItemDTO != null) {
                     binding.txtQrContent.setText(qrItemDTO.getContent());
                     binding.txtQrType.setText(qrItemDTO.getType());
