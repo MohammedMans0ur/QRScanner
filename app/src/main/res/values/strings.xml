@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">QR Scanner</string>
+    <string name="title_cancel">Cancel</string>
+    <string name="title_ok">OK</string>
+    <string name="title_permission_denied">Permission denied</string>
+    <string name="msg_camera_permission_denied">Camera Permission denied</string>
+    <string name="title_scan_qr">Scan QR</string>
+    <string name="title_history">History</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_scan_qr_code">Scan QR Code</string>
+    <string name="title_open_website"><u>Open website</u></string>
+    <string name="title_details">Details</string>
+</resources>

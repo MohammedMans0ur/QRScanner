@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    tools:context=".ui.scanneditemdetails.view.ScannedItemDetailsActivity">
+
+    <include
+        android:id="@+id/lyt_toolbar"
+        layout="@layout/layout_toolbar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_qr_content"
+        android:layout_width="wrap_content"
+        android:background="?selectableItemBackground"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lyt_toolbar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_qr_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_14"
+        app:layout_constraintEnd_toStartOf="@id/img_favorite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_qr_content"
+        tools:text="QR " />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txt_qr_type"
+        app:srcCompat="@drawable/baseline_star_border_24" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="img_favorite,txt_qr_type" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_qr_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:textAlignment="viewStart"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/font_15"
+        app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_open_qr_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_16"
+        android:drawableStart="@drawable/baseline_link_24"
+        android:drawablePadding="@dimen/dimen_8"
+        android:paddingEnd="3dp"
+        android:background="?selectableItemBackground"
+        android:text="@string/title_open_website"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/font_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_qr_date" />
+</androidx.constraintlayout.widget.ConstraintLayout>

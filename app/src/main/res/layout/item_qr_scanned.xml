@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_16">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_item_qr_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_barcode" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_item_qr_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_medium"
+        android:maxLines="1"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_18"
+        app:layout_constraintEnd_toStartOf="@id/img_next"
+        app:layout_constraintStart_toEndOf="@id/img_item_qr_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="content name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_item_qr_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAlignment="viewStart"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/font_14"
+        app:layout_constraintEnd_toStartOf="@id/img_next"
+        app:layout_constraintStart_toEndOf="@id/img_item_qr_image"
+        app:layout_constraintTop_toBottomOf="@id/txt_item_qr_content"
+        tools:text="Mon 1/2/2025 10:00 am" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/baseline_navigate_next_24" />
+
+    <View
+        android:id="@+id/view_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/alto"
+        app:layout_constraintTop_toBottomOf="@id/txt_item_qr_date" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
