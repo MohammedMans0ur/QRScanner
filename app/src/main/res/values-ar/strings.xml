@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QR Scanner</string>
+    <string name="title_cancel">إلغاء</string>
+    <string name="title_ok">موافق</string>
+    <string name="title_permission_denied">إذن الكاميرا مطلوب</string>
+    <string name="msg_camera_permission_denied">يحتاج هذا التطبيق إلى إذن استخدام الكاميرا لالتقاط الصور. من فضلك، امنح الإذن.</string>
+    <string name="title_scan_qr">مسح QR</string>
+    <string name="title_history">السجل</string>
+    <string name="title_favorites">المضلة</string>
+    <string name="title_scan_qr_code">مسح QR</string>
+    <string name="title_open_website"><u>فتح الرابط</u></string>
+    <string name="title_details">التفاصيل</string>
+    <string name="msg_no_favorites_available">لا يوجد مفضلة</string>
+    <string name="title_grant">منح الاذن</string>
+</resources>
