@@ -10,4 +10,5 @@
     <string name="title_scan_qr_code">Scan QR Code</string>
     <string name="title_open_website"><u>Open website</u></string>
     <string name="title_details">Details</string>
+    <string name="msg_no_favorites_available">No favorites available</string>
 </resources>

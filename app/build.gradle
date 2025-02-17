@@ -50,6 +50,8 @@ dependencies {
     implementation libs.adapter.rxjava2
     implementation libs.logging.interceptor
     implementation libs.rxandroid
+    implementation libs.swiperefreshlayout
+
 
 
 }

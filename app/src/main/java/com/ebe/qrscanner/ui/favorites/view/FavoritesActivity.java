@@ -3,8 +3,10 @@ package com.ebe.qrscanner.ui.favorites.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ebe.qrscanner.R;
 import com.ebe.qrscanner.databinding.ActivityFavoritesBinding;
@@ -24,8 +26,34 @@ public class FavoritesActivity extends BaseActivity {
         binding = ActivityFavoritesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initToolbar();
-        initScannedQrAdapter();
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initScannedQrAdapter();
+        initUI();
+    }
+
+    private void initUI() {
+        try {
+            binding.swipeFavorites.setOnRefreshListener(() -> {
+                scannedItemsAdapter.clearAdapter();
+                initScannedQrAdapter();
+                binding.swipeFavorites.setRefreshing(false);
+            });
+            if (scannedItemsAdapter.getItemCount() == 0) {
+                binding.recyclerScannedQr.setVisibility(View.GONE);
+                binding.txtNoFavoritesAvailable.setVisibility(View.VISIBLE);
+            } else {
+                binding.recyclerScannedQr.setVisibility(View.VISIBLE);
+                binding.txtNoFavoritesAvailable.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     private void initScannedQrAdapter() {

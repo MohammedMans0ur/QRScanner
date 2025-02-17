@@ -12,6 +12,7 @@ constraintlayout = "2.2.0"
 retrofit = "2.9.0"
 roomRuntime = "2.6.1"
 rxandroid = "2.1.1"
+swiperefreshlayout = "1.2.0-alpha01"
 zxingAndroidEmbedded = "4.3.0"
 
 
@@ -33,6 +34,7 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRun
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "roomRuntime" }
 rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxandroid" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 
 [plugins]

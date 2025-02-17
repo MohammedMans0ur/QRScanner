@@ -59,6 +59,15 @@ public class ScannedItemsAdapter extends RecyclerView.Adapter<ScannedItemsAdapte
         return qrItemDTOList == null ? 0 : qrItemDTOList.size();
     }
 
+    public void clearAdapter() {
+        try {
+            int size = qrItemDTOList.size();
+            qrItemDTOList.clear();
+            notifyItemRangeRemoved(0, size);
+        } catch (Exception e) {
+        }
+    }
+
     public static class ScannedItemViewHolder extends RecyclerView.ViewHolder {
         ItemQrScannedBinding binding;
 
