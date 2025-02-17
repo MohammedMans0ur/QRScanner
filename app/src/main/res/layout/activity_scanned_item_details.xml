@@ -14,10 +14,10 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_qr_content"
         android:layout_width="wrap_content"
-        android:background="?selectableItemBackground"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_20"
+        android:background="?selectableItemBackground"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         android:textSize="@dimen/font_18"
@@ -73,10 +73,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_16"
+        android:background="?selectableItemBackground"
         android:drawableStart="@drawable/baseline_link_24"
         android:drawablePadding="@dimen/dimen_8"
         android:paddingEnd="3dp"
-        android:background="?selectableItemBackground"
         android:text="@string/title_open_website"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/font_16"
@@ -84,4 +84,17 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_qr_date" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_item_qr_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        android:scaleType="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_open_qr_link"
+        app:layout_constraintVertical_bias="0.3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

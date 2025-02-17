@@ -19,16 +19,19 @@ public class QRItemDTO {
     private String type;
     @ColumnInfo(name = "Favorite")
     private Boolean favorite;
+    @ColumnInfo(name = "Image")
+    private byte[] image;
 
     public QRItemDTO() {
     }
 
     @Ignore
-    public QRItemDTO(String content, String date, String type, Boolean favorite) {
+    public QRItemDTO(String content, String date, String type, Boolean favorite, byte[] image) {
         this.content = content;
         this.date = date;
         this.type = type;
         this.favorite = favorite;
+        this.image = image;
 
     }
 
@@ -70,5 +73,13 @@ public class QRItemDTO {
 
     public void setFavorite(Boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

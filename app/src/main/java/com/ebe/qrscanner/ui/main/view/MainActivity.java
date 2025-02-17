@@ -152,8 +152,7 @@ public class MainActivity extends BaseActivity implements MainView {
     private final androidx.activity.result.ActivityResultLauncher<ScanOptions> qrScannerLauncher = registerForActivityResult(
             new ScanContract(), result -> {
                 if (result.getContents() != null) {
-
-                    QRItemDTO QRItemDTO = new QRItemDTO(result.getContents(), AppUtils.getCurrentDateTime("dd/MM/yy HH:mm a"), result.getFormatName(), false);
+                    QRItemDTO QRItemDTO = new QRItemDTO(result.getContents(), AppUtils.getCurrentDateTime("dd/MM/yy HH:mm a"), result.getFormatName(), false,result.getRawBytes());
                     mainPresenter.insertQRItem(QRItemDTO);
 
                 }

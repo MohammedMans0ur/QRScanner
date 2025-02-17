@@ -1,6 +1,9 @@
 package com.ebe.qrscanner.ui.scanneditemdetails.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -18,6 +21,8 @@ import com.ebe.qrscanner.ui.base.view.BaseActivity;
 import com.ebe.qrscanner.ui.scanneditemdetails.presenter.ScannedItemDetailsPresenter;
 import com.ebe.qrscanner.utils.AppUtils;
 import com.ebe.qrscanner.utils.Constants;
+
+import java.nio.ByteBuffer;
 
 public class ScannedItemDetailsActivity extends BaseActivity {
     private final ScannedItemDetailsPresenter scannedItemDetailsPresenter = new ScannedItemDetailsPresenter();
@@ -67,8 +72,12 @@ public class ScannedItemDetailsActivity extends BaseActivity {
                     } else {
                         binding.txtOpenQrLink.setVisibility(View.GONE);
                     }
-                }
-            }else {
+
+                    // Bitmap = null will check it later
+               /*     Bitmap bmp = BitmapFactory.decodeByteArray(qrItemDTO.getImage(), 0, qrItemDTO.getImage().length);
+                    binding.imgItemQrImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, 200, 200, false));
+               */ }
+            } else {
                 Toast.makeText(this, "Failed to Load Data", Toast.LENGTH_SHORT).show();
 
             }
