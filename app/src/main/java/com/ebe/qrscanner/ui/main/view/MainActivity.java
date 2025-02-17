@@ -1,9 +1,12 @@
 package com.ebe.qrscanner.ui.main.view;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,9 +42,16 @@ public class MainActivity extends BaseActivity implements MainView {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initToolbar();
+        if (!isCameraPermissionAllowed())
+            requestCameraPermissionForFirstTime();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initUI();
-
-
     }
 
     private void initUI() {
@@ -93,7 +103,7 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
 
-    private void requestCameraPermission() {
+    private void requestCameraPermissionForFirstTime() {
         if (shouldShowRequestPermissionRationale(
                 Manifest.permission.CAMERA)) {
             new AlertDialog.Builder(this)
@@ -107,8 +117,25 @@ public class MainActivity extends BaseActivity implements MainView {
                     .create()
                     .show();
         } else {
-            requestPermissions(
-                    new String[]{Manifest.permission.CAMERA}, Constants.CAMERA_PERMISSION_REQUEST_CODE);
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, Constants.CAMERA_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private void requestCameraPermission() {
+        if (shouldShowRequestPermissionRationale(
+                Manifest.permission.CAMERA)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.title_permission_denied))
+                    .setMessage(getResources().getString(R.string.msg_camera_permission_denied))
+                    .setPositiveButton(getResources().getString(R.string.title_grant),
+                            (dialog, which) -> requestPermissions(
+                                    new String[]{Manifest.permission.CAMERA},
+                                    Constants.CAMERA_PERMISSION_REQUEST_CODE))
+                    .setNegativeButton(getResources().getString(R.string.title_cancel), null)
+                    .create()
+                    .show();
+        } else {
+            openAppSettings();
         }
     }
 
@@ -119,14 +146,31 @@ public class MainActivity extends BaseActivity implements MainView {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 scanQRCode();
             } else {
-                // Explain to the user that the feature is unavailable because the
-                // features requires a permission that the user has denied. At the
-                // same time, respect the user's decision. Don't link to system
-                // settings in an effort to convince the user to change their
-                // decision.
-                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(this)
+                        .setTitle(getResources().getString(R.string.title_permission_denied))
+                        .setMessage(getResources().getString(R.string.msg_camera_permission_denied))
+                        .setPositiveButton(getString(R.string.title_ok), (dialog, which) -> dialog.dismiss())
+                        .create()
+                        .show();
             }
         }
+    }
+
+    private void openAppSettings() {
+
+        new AlertDialog.Builder(this)
+                .setTitle(getResources().getString(R.string.title_permission_denied))
+                .setMessage(getResources().getString(R.string.msg_camera_permission_denied))
+                .setPositiveButton(getString(R.string.title_grant), (dialog, which) -> {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                })
+                .setNegativeButton(getResources().getString(R.string.title_cancel), null)
+                .create()
+                .show();
+
     }
 
     private void scanQRCode() {
@@ -152,7 +196,7 @@ public class MainActivity extends BaseActivity implements MainView {
     private final androidx.activity.result.ActivityResultLauncher<ScanOptions> qrScannerLauncher = registerForActivityResult(
             new ScanContract(), result -> {
                 if (result.getContents() != null) {
-                    QRItemDTO QRItemDTO = new QRItemDTO(result.getContents(), AppUtils.getCurrentDateTime("dd/MM/yy HH:mm a"), result.getFormatName(), false,result.getRawBytes());
+                    QRItemDTO QRItemDTO = new QRItemDTO(result.getContents(), AppUtils.getCurrentDateTime("dd/MM/yy HH:mm a"), result.getFormatName(), false, result.getRawBytes());
                     mainPresenter.insertQRItem(QRItemDTO);
 
                 }
