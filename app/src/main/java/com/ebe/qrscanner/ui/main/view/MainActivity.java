@@ -19,8 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ebe.qrscanner.R;
 import com.ebe.qrscanner.databinding.ActivityMainBinding;
+import com.ebe.qrscanner.model.DataManager;
 import com.ebe.qrscanner.model.data.dto.QRItemDTO;
+import com.ebe.qrscanner.model.data.source.database.DatabaseHelper;
 import com.ebe.qrscanner.ui.base.view.BaseActivity;
+import com.ebe.qrscanner.ui.favorites.presenter.FavoritesPresenter;
 import com.ebe.qrscanner.ui.favorites.view.FavoritesActivity;
 import com.ebe.qrscanner.ui.favorites.view.ScannedItemsAdapter;
 import com.ebe.qrscanner.ui.main.presenter.MainPresenter;
@@ -32,9 +35,11 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 public class MainActivity extends BaseActivity implements MainView {
-    private final MainPresenter mainPresenter = new MainPresenter(this);
+    private MainPresenter mainPresenter;
     private ActivityMainBinding binding;
     private ScannedItemsAdapter scannedItemsAdapter;
+    private DatabaseHelper databaseHelper;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,9 @@ public class MainActivity extends BaseActivity implements MainView {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initToolbar();
+        databaseHelper = DatabaseHelper.getDatabaseHelper(this);
+        dataManager = new DataManager(databaseHelper);
+        mainPresenter = new MainPresenter(this, dataManager);
         if (!isCameraPermissionAllowed())
             requestCameraPermissionForFirstTime();
 
@@ -109,7 +117,7 @@ public class MainActivity extends BaseActivity implements MainView {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.title_permission_denied))
                     .setMessage(getResources().getString(R.string.msg_camera_permission_denied))
-                    .setPositiveButton(getResources().getString(R.string.title_ok),
+                    .setPositiveButton(getResources().getString(R.string.title_grant),
                             (dialog, which) -> requestPermissions(
                                     new String[]{Manifest.permission.CAMERA},
                                     Constants.CAMERA_PERMISSION_REQUEST_CODE))
@@ -127,7 +135,7 @@ public class MainActivity extends BaseActivity implements MainView {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.title_permission_denied))
                     .setMessage(getResources().getString(R.string.msg_camera_permission_denied))
-                    .setPositiveButton(getResources().getString(R.string.title_grant),
+                    .setPositiveButton(getResources().getString(R.string.title_ok),
                             (dialog, which) -> requestPermissions(
                                     new String[]{Manifest.permission.CAMERA},
                                     Constants.CAMERA_PERMISSION_REQUEST_CODE))
@@ -182,7 +190,7 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initScannedQrAdapter() {
-        scannedItemsAdapter = new ScannedItemsAdapter(mainPresenter.getScannedQRItems(getApplicationContext()), this);
+        scannedItemsAdapter = new ScannedItemsAdapter(mainPresenter.getScannedQRItems(), this);
         binding.recyclerHistoryScannedQr.setAdapter(scannedItemsAdapter);
         binding.recyclerHistoryScannedQr.setLayoutManager(new LinearLayoutManager(this));
         scannedItemsAdapter.setOnScannedItemClickListener(qrItemDTO -> {
@@ -197,7 +205,7 @@ public class MainActivity extends BaseActivity implements MainView {
             new ScanContract(), result -> {
                 if (result.getContents() != null) {
                     QRItemDTO QRItemDTO = new QRItemDTO(result.getContents(), AppUtils.getCurrentDateTime("dd/MM/yy HH:mm a"), result.getFormatName(), false, result.getRawBytes());
-                    mainPresenter.insertQRItem(QRItemDTO,getApplicationContext());
+                    mainPresenter.insertQRItem(QRItemDTO);
 
                 }
             }

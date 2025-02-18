@@ -10,15 +10,19 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ebe.qrscanner.R;
 import com.ebe.qrscanner.databinding.ActivityFavoritesBinding;
+import com.ebe.qrscanner.model.DataManager;
+import com.ebe.qrscanner.model.data.source.database.DatabaseHelper;
 import com.ebe.qrscanner.ui.base.view.BaseActivity;
 import com.ebe.qrscanner.ui.favorites.presenter.FavoritesPresenter;
 import com.ebe.qrscanner.ui.scanneditemdetails.view.ScannedItemDetailsActivity;
 import com.ebe.qrscanner.utils.Constants;
 
 public class FavoritesActivity extends BaseActivity {
-    private final FavoritesPresenter favoritesPresenter = new FavoritesPresenter();
+    private FavoritesPresenter favoritesPresenter;
     private ActivityFavoritesBinding binding;
     private ScannedItemsAdapter scannedItemsAdapter;
+    private DatabaseHelper databaseHelper;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,9 @@ public class FavoritesActivity extends BaseActivity {
         binding = ActivityFavoritesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initToolbar();
+        databaseHelper = DatabaseHelper.getDatabaseHelper(this);
+        dataManager = new DataManager(databaseHelper);
+        favoritesPresenter = new FavoritesPresenter(dataManager);
 
 
     }
@@ -57,7 +64,7 @@ public class FavoritesActivity extends BaseActivity {
     }
 
     private void initScannedQrAdapter() {
-        scannedItemsAdapter = new ScannedItemsAdapter(favoritesPresenter.getFavoriteQRItems(getApplicationContext()), this);
+        scannedItemsAdapter = new ScannedItemsAdapter(favoritesPresenter.getFavoriteQRItems(), this);
         binding.recyclerScannedQr.setAdapter(scannedItemsAdapter);
         binding.recyclerScannedQr.setLayoutManager(new LinearLayoutManager(this));
         scannedItemsAdapter.setOnScannedItemClickListener(qrItemDTO -> {

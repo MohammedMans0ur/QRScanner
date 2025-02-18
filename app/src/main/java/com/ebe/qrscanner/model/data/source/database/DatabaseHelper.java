@@ -18,7 +18,7 @@ public abstract class DatabaseHelper extends RoomDatabase {
 
     public static DatabaseHelper getDatabaseHelper(Context context) {
         if (databaseHelper == null) {
-            databaseHelper = Room.databaseBuilder(context.getApplicationContext(),
+            databaseHelper = Room.databaseBuilder(context,
                             DatabaseHelper.class, "QRScanner-Database")
                     .allowMainThreadQueries()
                     .build();

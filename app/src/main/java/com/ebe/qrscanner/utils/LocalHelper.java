@@ -8,8 +8,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
 
-import com.ebe.qrscanner.model.data.source.preferences.SharedManager;
-
 import java.util.Locale;
 
 public class LocalHelper {
@@ -84,7 +82,7 @@ public class LocalHelper {
         return context;
     }
 
-    public static boolean isArabic() {
+    /*public static boolean isArabic() {
 
         String Lang = SharedManager.newInstance().getCashValue(Constants.LANGUAGE);
         if (Lang == null)
@@ -104,5 +102,5 @@ public class LocalHelper {
         } else {
             return curruntLocal;
         }
-    }
+    }*/
 }

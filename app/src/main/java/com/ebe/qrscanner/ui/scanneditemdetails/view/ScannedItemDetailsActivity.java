@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.ebe.qrscanner.R;
 import com.ebe.qrscanner.databinding.ActivityScannedItemDetailsBinding;
+import com.ebe.qrscanner.model.DataManager;
 import com.ebe.qrscanner.model.data.dto.QRItemDTO;
+import com.ebe.qrscanner.model.data.source.database.DatabaseHelper;
 import com.ebe.qrscanner.ui.base.view.BaseActivity;
 import com.ebe.qrscanner.ui.scanneditemdetails.presenter.ScannedItemDetailsPresenter;
 import com.ebe.qrscanner.utils.AppUtils;
@@ -25,10 +27,12 @@ import com.ebe.qrscanner.utils.Constants;
 import java.nio.ByteBuffer;
 
 public class ScannedItemDetailsActivity extends BaseActivity {
-    private final ScannedItemDetailsPresenter scannedItemDetailsPresenter = new ScannedItemDetailsPresenter();
+    private ScannedItemDetailsPresenter scannedItemDetailsPresenter;
     private ActivityScannedItemDetailsBinding binding;
     private Long qrItemId;
     private QRItemDTO qrItemDTO;
+    private DataManager dataManager;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class ScannedItemDetailsActivity extends BaseActivity {
         binding = ActivityScannedItemDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initToolbar();
+        databaseHelper = DatabaseHelper.getDatabaseHelper(this);
+        dataManager = new DataManager(databaseHelper);
+        scannedItemDetailsPresenter = new ScannedItemDetailsPresenter(dataManager);
         initUI();
     }
 
@@ -55,11 +62,11 @@ public class ScannedItemDetailsActivity extends BaseActivity {
                     binding.imgFavorite.setImageResource(R.drawable.baseline_star_24);
                     qrItemDTO.setFavorite(true);
                 }
-                scannedItemDetailsPresenter.setFavorite(qrItemId, qrItemDTO.getFavorite(),getApplicationContext());
+                scannedItemDetailsPresenter.setFavorite(qrItemId, qrItemDTO.getFavorite(), getApplicationContext());
             });
             qrItemId = getIntent().getLongExtra(Constants.QR_ITEM_ID, 0);
             if (qrItemId != 0) {
-                qrItemDTO = scannedItemDetailsPresenter.getQRItem(qrItemId,getApplicationContext());
+                qrItemDTO = scannedItemDetailsPresenter.getQRItem(qrItemId);
                 if (qrItemDTO != null) {
                     binding.txtQrContent.setText(qrItemDTO.getContent());
                     binding.txtQrType.setText(qrItemDTO.getType());
@@ -76,7 +83,8 @@ public class ScannedItemDetailsActivity extends BaseActivity {
                     // Bitmap = null will check it later
                /*     Bitmap bmp = BitmapFactory.decodeByteArray(qrItemDTO.getImage(), 0, qrItemDTO.getImage().length);
                     binding.imgItemQrImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, 200, 200, false));
-               */ }
+               */
+                }
             } else {
                 Toast.makeText(this, "Failed to Load Data", Toast.LENGTH_SHORT).show();
 

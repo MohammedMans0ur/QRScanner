@@ -16,17 +16,21 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter {
     private MainView mainView;
+    private DataManager dataManager;
 
-    public MainPresenter(MainView mainView) {
+    public MainPresenter(MainView mainView, DataManager dataManager) {
         this.mainView = mainView;
+        this.dataManager = dataManager;
     }
 
-    public List<QRItemDTO> getScannedQRItems(Context context) {
-        return DataManager.getInstance(context).getScannedQRItems();
+
+
+    public List<QRItemDTO> getScannedQRItems() {
+        return dataManager.getScannedQRItems();
     }
 
-    public void insertQRItem(QRItemDTO qrItemDTO,Context context) {
-        DataManager.getInstance(context).insertQRItem(qrItemDTO)
+    public void insertQRItem(QRItemDTO qrItemDTO) {
+        dataManager.insertQRItem(qrItemDTO)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Long>() {
